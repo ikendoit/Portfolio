@@ -4,11 +4,16 @@ import myPDF from './Resume2018.pdf';
 
 //local
 import './App.css';
+import Bus from './Bus';
 
 class App extends Component {
   constructor(){
   	super();
-	this.setState({bright: ""});
+	this.setState({bright: "", busMode: false});
+  }
+
+  componentWillMount(){
+  	this.setState({busMode:false});
   }
 
   componentDidMount(){
@@ -25,11 +30,9 @@ class App extends Component {
     let resume = 	{name:"me-Resume", data: document.getElementById("Resume").getBoundingClientRect()};
 	let menu = [ skills, intro, exp, edu, goal, resume, menu];
 	this.setState({menu});
-	console.log(skills);
   }
 
   handleScroll(event){
-  	console.log(window.pageYOffset);
 	for (let ele of this.state.menu){
 		if ( ele != undefined && window.pageYOffset > ele.data.top && window.pageYOffset < ele.data.bottom){
 			this.brightUp(ele.name);
@@ -45,9 +48,15 @@ class App extends Component {
   }
 
   render() {
+  	if (this.state.busMode)
+		return(
+			<div>
+				<a style={{float:"right", backgroundColor:'green', padding:"18px"}} onClick={()=>this.setState({busMode:false})}> reverse</a>
+				<Bus />
+			</div>
+		);
     return (
       <div className="App">
-
         <header className="App-header" id="App-header">
           <img src="/me.jpeg" className="App-logo" alt="logo" style={{borderRadius:"50%"}} />
           <h1 className="App-title">Ken Nguyen</h1>
@@ -66,9 +75,9 @@ class App extends Component {
 
         <body className="body">
             <div id="introduction">
-                <p> Programmer </p>
-                <p>	Web Developer </p>
-                <p>	Student </p>
+                <p> <a href="https://stockmock.cf" target="_blank">Programmer </a></p>
+                <p>	<a href="https://stockmock.cf" target="_blank">Web Developer </a> </p>
+                <p>	<a style={{color:"rgb(85,26,139)"}}onClick={()=> this.setState({busMode:true})}>Student </a> </p>
             </div>
 
             <div id="Intro" className="Main"> 
@@ -145,7 +154,7 @@ class App extends Component {
             <div id="Resume" className="Main"> 	
                 <h1 style={{textAlign:'center'}}> Resume </h1>
                 <p style={{textAlign:'center'}}> You can click on my Resume to see it in pdf format</p> 
-                <a href={myPDF} > <PDF file={myPDF}  /> </a>
+                <a href="https://drive.google.com/file/d/1r0gCduYdRWpw6QinnscDThsiKrVM9Ebo/view?usp=sharing" > <img src="/Resume.jpg" width="80%" /> </a>
             </div>
         </body>
 

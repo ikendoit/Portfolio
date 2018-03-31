@@ -9,11 +9,12 @@ import Bus from './Bus';
 class App extends Component {
   constructor(){
   	super();
-	this.setState({bright: "", busMode: false});
+	this.setState({bright: ""});
   }
 
   componentWillMount(){
   	this.setState({busMode:false});
+	this.setState({bright: ""});
   }
 
   componentDidMount(){
@@ -57,6 +58,7 @@ class App extends Component {
 		);
     return (
       <div className="App">
+
         <header className="App-header" id="App-header">
           <img src="/me.jpeg" className="App-logo" alt="logo" style={{borderRadius:"50%"}} />
           <h1 className="App-title">Ken Nguyen</h1>
